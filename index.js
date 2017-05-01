@@ -18,16 +18,16 @@ var make_randomcolor = ()=>{
 
   self.resample = ()=>{
     while(1){
-      var c = [choice(120)+40,choice(120)+40,choice(120)+40]
+      var c = [choice(100)+60,choice(80)+60,choice(120)+60]
       var brightness = c[0]*0.3+c[1]*.58+c[2]*0.12
-      if(brightness>40)break; // reject colors that are too dark
+      if(brightness>100&&brightness<150)break; // reject colors that are too dark
     }
     self.c = c
   }
 
   var to_string = (c)=>`rgb(${c[0]},${c[1]},${c[2]})`
   self.light = ()=>to_string(self.c)
-  self.dark = ()=>to_string(self.c.map(n=>Math.floor(n*0.8)))
+  self.dark = ()=>to_string(self.c.map(n=>Math.floor(n*0.89)))
 
   self.resample()
   return self
@@ -219,7 +219,6 @@ var make_state_machine = (num_of_bricks)=>{
     switch(self.state){
       case 'won':
       self.level++;
-      randomcolor.resample()
       case 'fail':
       case 'idle':
       self.init_board()
