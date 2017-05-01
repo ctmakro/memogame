@@ -55,8 +55,8 @@
     border-style: solid;
 }
 
-#board {width: 400px;max-width: 100%;height: 400px;max-height: 100%;display: flex;flex-wrap: wrap;/* margin: auto; */font-size: 30px;}
-#buttons {display: flex;justify-content: center;margin-top: 20px;}
+#board {width: 400px;max-width: 100%;height: 400px;max-height: 100%;display: flex;flex-wrap: wrap;margin: auto;font-size: 30px;}
+#buttons {display: flex;justify-content: center;margin: auto;margin-top: 20px;}
 #author {
     margin: auto;
     text-align: center;
@@ -65,11 +65,11 @@
     color: #777777;
 }
 #table{
-    /* width: 400px; */
+    width: 400px;
     /* max-width: 100%; */
     /* height: 400px; */
     /* max-height: 100%; */
-    display: inline-block;
+    display: block;
     margin: auto;
     border-style: solid;
     border-color: white;
