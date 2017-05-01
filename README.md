@@ -6,4 +6,4 @@ A simple visual number memorization game. Original version written in Visual Bas
 
 Open in browser.
 
-Requires ES6 arrow function support.
+<s>Requires ES6 arrow function support.</s> Transpiled to ES3 using TypeScript `tsc index.ts`
