@@ -113,7 +113,7 @@ var make_state_machine = function (num_of_bricks) {
         self.render();
     };
     self.calc_observation_time = function () {
-        return (self.level + 1) * 0.5;
+        return (self.level + 1) * 0.7;
     };
     self.init_board = function () {
         self.clear_board();
@@ -135,15 +135,18 @@ var make_state_machine = function (num_of_bricks) {
         self.state = 'displaying';
         self.state_counter = 1;
         self.render();
-        setTimeout(self.cover_all, Math.floor(1000 * self.calc_observation_time()));
+        self.timeout_handle = setTimeout(self.cover_all, Math.floor(1000 * self.calc_observation_time()));
     };
     self.cover_all = function () {
-        self.bricks.map(function (b) {
-            if (b.number && b.mode !== 'revealed')
-                b.set_mode('covered');
-        });
-        self.state = 'waiting';
-        self.render();
+        if (self.state == 'displaying') {
+            clearTimeout(self.timeout_handle);
+            self.bricks.map(function (b) {
+                if (b.number !== 0 && b.mode !== 'revealed')
+                    b.set_mode('covered');
+            });
+            self.state = 'waiting';
+            self.render();
+        }
     };
     self.reveal_all = function () {
         self.bricks.map(function (b) {

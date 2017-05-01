@@ -138,7 +138,7 @@ var make_state_machine = (num_of_bricks)=>{
   }
 
   self.calc_observation_time = ()=>{
-    return (self.level+1) * 0.5
+    return (self.level+1) * 0.7
   }
 
   self.init_board = ()=>{
@@ -162,15 +162,19 @@ var make_state_machine = (num_of_bricks)=>{
     self.state_counter = 1
 
     self.render()
-    setTimeout(self.cover_all, Math.floor(1000 * self.calc_observation_time()))
+    self.timeout_handle = setTimeout(self.cover_all, Math.floor(1000 * self.calc_observation_time()))
   }
 
   self.cover_all = ()=>{
-    self.bricks.map(b=>{
-      if(b.number&&b.mode!=='revealed')b.set_mode('covered');
-    })
-    self.state = 'waiting'
-    self.render()
+    if(self.state=='displaying'){
+      clearTimeout(self.timeout_handle)
+      
+      self.bricks.map(b=>{
+        if(b.number!==0&&b.mode!=='revealed')b.set_mode('covered');
+      })
+      self.state = 'waiting'
+      self.render()
+    }
   }
 
   self.reveal_all = ()=>{
