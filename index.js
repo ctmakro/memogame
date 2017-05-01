@@ -164,8 +164,8 @@ var make_state_machine = (num_of_bricks)=>{
   self.brick_click = (brick)=>{
     switch(self.state){
       case 'waiting':
-      if(brick.number!=0){
-        //brick is valid with number assigned
+      if(brick.number!==0 && brick.mode=='covered'){
+        //brick is valid with number assigned && covered
         brick.set_mode('revealed')
 
         if(brick.number === self.state_counter){
