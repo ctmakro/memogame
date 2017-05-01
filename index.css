@@ -52,7 +52,7 @@
 
 .revealed-wrong {/* border-style: solid; */background-color: white;color: #719034;}
 .revealed{
-    border-style: dashed;
+    border-style: solid;
 }
 
 #board {width: 400px;max-width: 100%;height: 400px;max-height: 100%;display: flex;flex-wrap: wrap;margin: auto;font-size: 30px;}
@@ -62,7 +62,7 @@
     text-align: center;
     display: block;
     margin-top: 15px;
-    color: #617b2c;
+    color: #719034;
 }
 body {
   background-color: #719034;
