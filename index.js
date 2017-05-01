@@ -113,7 +113,7 @@ var make_state_machine = function (num_of_bricks) {
         self.render();
     };
     self.calc_observation_time = function () {
-        return 0.5 + Math.sqrt(self.level) / 2;
+        return (self.level + 1) * 0.5;
     };
     self.init_board = function () {
         self.clear_board();

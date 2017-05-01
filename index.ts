@@ -138,7 +138,7 @@ var make_state_machine = (num_of_bricks)=>{
   }
 
   self.calc_observation_time = ()=>{
-    return 0.5 + Math.sqrt(self.level)/2
+    return (self.level+1) * 0.5
   }
 
   self.init_board = ()=>{
