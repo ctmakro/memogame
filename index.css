@@ -50,7 +50,7 @@
 
 .covered {background-color: white;}
 
-.revealed-wrong {/* border-style: solid; */background-color: white;color: #719034;}
+.revealed-wrong {/* border-style: solid; */background-color: white;color: #999999;}
 .revealed{
     border-style: solid;
 }
@@ -62,10 +62,10 @@
     text-align: center;
     display: block;
     margin-top: 15px;
-    color: #719034;
+    color: #777777;
 }
 body {
-  background-color: #719034;
+  background-color: #999999;
 }
 4;
 }

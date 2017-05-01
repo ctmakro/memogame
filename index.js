@@ -13,6 +13,28 @@ var choice = (i)=>Math.floor(Math.random() * i)
 var board = geid('board')
 var buttons = geid('buttons')
 
+var make_randomcolor = ()=>{
+  var self = {}
+
+  self.resample = ()=>{
+    while(1){
+      var c = [choice(120)+40,choice(120)+40,choice(120)+40]
+      var brightness = c[0]*0.3+c[1]*.58+c[2]*0.12
+      if(brightness>40)break; // reject colors that are too dark
+    }
+    self.c = c
+  }
+
+  var to_string = (c)=>`rgb(${c[0]},${c[1]},${c[2]})`
+  self.light = ()=>to_string(self.c)
+  self.dark = ()=>to_string(self.c.map(n=>Math.floor(n*0.8)))
+
+  self.resample()
+  return self
+}
+
+var randomcolor = make_randomcolor()
+
 var make_button = ()=>{
   var self = {}
   self.elem = ce('div')
@@ -62,6 +84,8 @@ var make_brick = ()=>{
     // use mode string as class string.
     self.elem2.className = self.mode +' brick-base box-base ' +
       (self.mode=='empty'||self.mode=='displaying'?'':'shadow-base')
+
+      self.elem2.style.color = (self.mode=='revealed-wrong'?randomcolor.light():'')
 
     if(self.number!==0 && self.mode!=='covered'){
       self.elem3.innerHTML = self.number.toString()
@@ -195,6 +219,7 @@ var make_state_machine = (num_of_bricks)=>{
     switch(self.state){
       case 'won':
       self.level++;
+      randomcolor.resample()
       case 'fail':
       case 'idle':
       self.init_board()
@@ -217,6 +242,9 @@ var make_state_machine = (num_of_bricks)=>{
       won:'Next Level',
       fail:'Try Again'
     }[self.state] || 'Restart'
+
+    document.body.style.backgroundColor = randomcolor.light()
+    geid('author').style.color = randomcolor.dark()
 
     self.bricks.map(b=>{
       b.render()
