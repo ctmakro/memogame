@@ -24,7 +24,13 @@
   justify-content: center;
 }
 
-.button-base{border-style: solid;padding: 10px;font-size: 20px;}
+.button-base{
+  border-style: solid;padding: 10px;font-size: 20px;
+}
+
+.shadow-base {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+}
 
 .box-base{
   color: white;

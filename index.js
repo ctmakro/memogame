@@ -19,7 +19,7 @@ var make_button = ()=>{
   buttons.appendChild(self.elem)
 
   self.text = ''
-  self.elem.className = 'button-base box-base'
+  self.elem.className = 'button-base box-base shadow-base'
 
   self.onclick = (f)=>{
     var g = ()=>f(self)
@@ -60,7 +60,8 @@ var make_brick = ()=>{
 
   self.render = ()=>{
     // use mode string as class string.
-    self.elem2.className = self.mode +' brick-base box-base'
+    self.elem2.className = self.mode +' brick-base box-base ' +
+      (self.mode=='empty'||self.mode=='displaying'?'':'shadow-base')
 
     if(self.number!==0 && self.mode!=='covered'){
       self.elem3.innerHTML = self.number.toString()
