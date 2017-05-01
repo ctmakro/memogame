@@ -83,9 +83,9 @@ var make_brick = ()=>{
   self.render = ()=>{
     // use mode string as class string.
     self.elem2.className = self.mode +' brick-base box-base ' +
-      (self.mode=='empty'||self.mode=='displaying'?'':'shadow-base')
+    (self.mode=='empty'||self.mode=='displaying'?'':'shadow-base')
 
-      self.elem2.style.color = (self.mode=='revealed-wrong'?randomcolor.light():'')
+    self.elem2.style.color = (self.mode=='revealed-wrong'?randomcolor.light():'')
 
     if(self.number!==0 && self.mode!=='covered'){
       self.elem3.innerHTML = self.number.toString()
@@ -129,11 +129,6 @@ var make_state_machine = (num_of_bricks)=>{
 
   ///////////////////////
 
-  self.set_level = (level)=>{
-    self.level = level
-    self.init_board()
-  }
-
   self.clear_board = ()=>{
     self.bricks.map(b=>{
       b.set_mode('empty')
@@ -172,7 +167,7 @@ var make_state_machine = (num_of_bricks)=>{
 
   self.cover_all = ()=>{
     self.bricks.map(b=>{
-      if(b.number)b.set_mode('covered');
+      if(b.number&&b.mode!=='revealed')b.set_mode('covered');
     })
     self.state = 'waiting'
     self.render()
@@ -188,6 +183,13 @@ var make_state_machine = (num_of_bricks)=>{
 
   self.brick_click = (brick)=>{
     switch(self.state){
+      case 'displaying':
+      if(brick.number==self.state_counter){ // if clicking on the starting number
+        self.state_counter++
+        brick.set_mode('revealed')
+        self.cover_all()
+      }
+      break;
       case 'waiting':
       if(brick.number!==0 && brick.mode=='covered'){
         //brick is valid with number assigned && covered
@@ -198,6 +200,9 @@ var make_state_machine = (num_of_bricks)=>{
           if(self.level === self.state_counter){
             //winning
             self.state = 'won'
+            if(self.level>=35){
+              self.state = 'won_fin'
+            }
           }else{
             self.state_counter++;
           }
@@ -224,6 +229,13 @@ var make_state_machine = (num_of_bricks)=>{
       self.init_board()
       break;
 
+      case 'won_fin':
+      self.state = 'idle'
+      randomcolor.resample()
+      self.level = 2
+      self.clear_board()
+      break;
+
       case 'displaying':
       break;
 
@@ -239,6 +251,7 @@ var make_state_machine = (num_of_bricks)=>{
     self.btn_start.text = {
       idle:'Start',
       won:'Next Level',
+      won_fin:'Congratulations! Click to Restart',
       fail:'Try Again'
     }[self.state] || 'Restart'
 
