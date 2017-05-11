@@ -11,7 +11,7 @@ var choice = (i)=>Math.floor(Math.random() * i)
 
 var make = (()=>{
   var make = function(populator){
-    var c = function(){this.__init__(this,arguments)}
+    var c = function(){this.__init__.apply(this,arguments)}
     if(typeof populator==='function')populator(c.prototype)
     else c.prototype = populator
     return c

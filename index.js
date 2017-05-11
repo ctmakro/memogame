@@ -12,7 +12,7 @@ var range = function (i) {
 var choice = function (i) { return Math.floor(Math.random() * i); };
 var make = (function () {
     var make = function (populator) {
-        var c = function () { this.__init__(this, arguments); };
+        var c = function () { this.__init__.apply(this, arguments); };
         if (typeof populator === 'function')
             populator(c.prototype);
         else
